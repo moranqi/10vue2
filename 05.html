@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue2.6.10.js"></script>
+</head>
+<body>
+
+<div id="demo5">
+    <button1></button1>
+</div>
+<script>
+    var button1={
+        template: `
+           <div>
+              <button @click="sendVerify()" @mouseover="Mouseover()" @mouseleave="Mouseleave()" :style="buttonStyle">{{test}}</button>
+           </div>
+        `,
+        data() {
+            return {
+                test:'test',
+                buttonStyle: 'background:white;border:2px solid blue; width:100px;height:35px'
+            }
+        },
+        methods:{
+            sendVerify(){
+                alert(this.test)
+            },
+            Mouseover () {
+                this.buttonstyle='background:blue;color=white;width:100px;height:35px'
+            },
+            Mouseleave() {
+                this.buttonstyle='background:white;border:2px solid blue; width:100px;height:35px'
+            }
+        }
+    }
+    new Vue({
+        el:'#demo5',
+        components:{
+            'demo-button':button1
+        }
+    })
+</script>
+</body>
+</html>

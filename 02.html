@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue2.6.10.js"></script>
+    <style>
+        .active {
+            color: white;
+            background: #000;
+        }
+    </style>
+</head>
+<body>
+<div id="app2">
+    <demo-table :info="list1" :info2="Contents1" ></demo-table>
+    <hr/>
+    <demo-table :info="list2" :info2="Contents2" ></demo-table>
+</div>
+<script>
+    var DemoTable={
+        template:`
+        <div :style="tablestyle">
+        <div :style="tabstyle">
+          <ul :style="ulstyle">
+            <li v-for="(item,index) in info" :key="index"  :class="{active:num==index}" @click="getNum(index)" :style="listyle">
+              {{item}}
+            </li>
+          </ul>
+        </div>
+        <div>
+      <div v-for='(itemCon,index) in info2' v-show="index == num">
+        {{itemCon}}
+      </div>
+    </div>
+  </div>
+        `,
+        data(){
+            return{
+                num: 0,
+                tablestyle:'border:2px solid #000;width:900px;height:200px; font-size: 18px;',
+                tabstyle:'color:black;width:900px;height:40px;',
+                ulstyle: 'width: 100%;display: flex;list-style: none; padding: 0;margin: 0;line-height: 40px;border:1px solid #000;',
+                listyle:'flex: 1;text-align: center;',
+                textstyle: 'border:2px solid #000; width:60px;height:30px;text-align:center'
+            }
+        },
+        methods:{
+            getNum(index) {
+                this.num = index;
+            }
+        },
+        props:['info','info2']
+    }
+    new Vue({
+        el:'#app2',
+        data(){
+            return{
+                list1: ["选项卡1", "选项卡2", "选项卡3"],
+                Contents1: [
+                    "这是选项卡1的内容",
+                    "这是选项卡2的内容",
+                    "这是选项卡3的内容"],
+                list2: ["京东超市", "数码电器", "服饰美妆","京东生鲜"],
+                Contents2: [
+                    "<ul><li>时令生鲜</li><li>休闲零食</li><li>营养保健</li><li>粮油调味</li></ul>",
+                    "<ul><li>粮油调味</li><li>时令生鲜</li><li>休闲零食</li><li>营养保健</li></ul>",
+                    "<ul><li>营养保健</li><li>粮油调味</li><li>时令生鲜</li><li>休闲零食</li></ul>",
+                    "<ul><li>休闲零食</li><li>营养保健</li><li>粮油调味</li><li>时令生鲜</li></ul>"],
+            }
+        },
+        components:{DemoTable}
+    })
+</script>
+</body>
+</html>
